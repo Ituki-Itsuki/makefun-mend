@@ -322,8 +322,8 @@ function unifiedEdits(lines: string[], strict: boolean): Edit[] {
       const l = lines[i]!;
       if (l.startsWith('@@') || l.startsWith('diff --git ')) break;
       if (l.startsWith('--- ')) {
-        if (sec.hdrOld !== undefined) break;
         if (!(lines[i + 1] ?? '').startsWith('+++ ')) throw new Exit2(`error: parse ${i + 2}`);
+        if (sec.hdrOld !== undefined) break;
         sec.hdrOld = parsePathArg(l.slice(4));
         sec.hdrNew = parsePathArg(lines[i + 1]!.slice(4));
         i += 2;
